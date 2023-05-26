@@ -1,9 +1,16 @@
 #include <iostream>
 
+struct Website {
+    std::string name { "learcpp" };
+};
+
+Website web {};
+
 struct Advertising {
     int ads_number {};
     int ad_clicks_number {};
     double avarage_click_earning {};
+    Website* ptr { &web };
 };
 
 void printAdvertising(const Advertising& ads) {
@@ -25,5 +32,9 @@ int main() {
     std::cin >> website.avarage_click_earning;
 
     printAdvertising(website);
+
+    Advertising* ptr { &website };
+
+    std::cout << ptr->ptr->name << '\n';
     return 0;
 }
