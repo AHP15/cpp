@@ -1,14 +1,24 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <limits> // for std::numeric_limits
+
+void ignoreLine()
+{
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+}
 
 int getStudentNumber() {
     int input { 0 };
-    do {
+    while(true) {
         std::cout << "Enter the number of students you want store: ";
         std::cin >> input;
-    } while(input <= 0 || std::cin.fail());
-    return input;
+    
+        if (!std::cin.fail()) return input;
+
+        std::cin.clear();
+        ignoreLine(); 
+    }
 }
 
 struct Student {
@@ -20,15 +30,24 @@ using Students = std::vector<Student>;
 
 Student getStudent(int studentNumber) {
     Student student {};
-    do {
+    while(true) {
         std::cout << "Enter student " << studentNumber << " name: ";
         std::cin >> student.name;
-    } while(std::cin.fail());
 
-    do {
+        if (!std::cin.fail()) break;
+
+        std::cin.clear();
+        ignoreLine(); 
+    }
+    while(true) {
         std::cout << "Enter student " << studentNumber << " grade: ";
         std::cin >> student.grade;
-    } while(std::cin.fail());
+
+        if (!std::cin.fail()) break;
+
+        std::cin.clear();
+        ignoreLine(); 
+    }
 
     return student;
 };
