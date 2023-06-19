@@ -69,8 +69,20 @@ bool compareStudents(Student s1, Student s2) {
     return s1.grade > s2.grade;
 };
 
+void printByCharecter(const char* str) {
+    // While we haven't encountered a null terminator
+  while (*str != '\0') {
+    // print the current character
+    std::cout << *str;
+
+    // and point str at the next character
+    ++str;
+  }
+};
+
 int main() {
 
+    printByCharecter("Hello world!");
     Students students { getStudents() };
     std::sort(students.begin(), students.end(), compareStudents);
 
