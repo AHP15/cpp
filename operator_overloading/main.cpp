@@ -112,6 +112,32 @@ bool operator>= (const Fraction& f1, const Fraction& f2)
 	return !(operator<(f1, f2));
 }
 
+class MyString
+{
+private:
+  std::string_view m_str{};
+public:
+  MyString(std::string_view str)
+    :m_str{str}
+  {}
+
+  friend std::ostream& operator<<(std::ostream& out, const MyString& s)
+	{
+		out << s.m_str;
+
+		return out;
+	}
+  std::string_view operator()(int index, int length);
+};
+
+std::string_view MyString::operator()(int index, int length)
+{
+  return m_str.substr(
+		static_cast<std::string::size_type>(index),
+		static_cast<std::string::size_type>(length)
+	);
+};
+
 int main()
 {
   Fraction f1{ 3, 2 };
@@ -123,6 +149,9 @@ int main()
 	std::cout << f1 << ((f1 > f2) ? " > " : " not > ") << f2 << '\n';
 	std::cout << f1 << ((f1 <= f2) ? " <= " : " not <= ") << f2 << '\n';
 	std::cout << f1 << ((f1 >= f2) ? " >= " : " not >= ") << f2 << '\n';
+
+  MyString s { "Hello, world!" };
+  std::cout << s(7, 5) << '\n'; 
 
   return 0;
 }
